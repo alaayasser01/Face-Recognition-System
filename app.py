@@ -1,4 +1,5 @@
 import streamlit as st 
+from streamlit_option_menu import option_menu
 import pickle
 import functions
 from PIL import Image
@@ -27,30 +28,44 @@ def head():
                )
 
 def main():
-    image = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"]) 
-    col1, col2 = st.columns(2)
-    img_file_buffer = st.camera_input("Take a picture")
-    if img_file_buffer is not None:
-    # To read image file buffer with OpenCV:
-        bytes_data = img_file_buffer.getvalue()
-        cv2_img = cv2.imdecode(np.frombuffer(bytes_data, np.uint8), cv2.IMREAD_GRAYSCALE)
-        cv2.imwrite(f"test/{img_file_buffer.name}",cv2_img)
-        pred = functions.predictor(f"test/{img_file_buffer.name}",functions.mean_face, functions.eigvecs, model)
-        print(pred)
-        st.success(pred)
+    
+    selected = option_menu(
+        menu_title=None,
+        options=['Upload Photo', 'Camera Input'],
+        orientation="horizontal"
+    )
+    
+    if selected == "Upload Photo":
+        image = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"]) 
+        col1, col2 = st.columns(2)
+        if image:
+            with col1:
+                st.image(image)
+            pred = functions.predictor(f"test/{image.name}",functions.mean_face, functions.eigvecs, model)
+            with col2:
+                st.success(pred)
+                image = Image.open("images\output.png")
+                st.image(image, caption="ROC curve")
+    
+    elif selected == "Camera Input":
+        col1, col2 = st.columns(2)
+        with col1:
+            img_file_buffer = st.camera_input("Take a picture")
+        if img_file_buffer is not None:
+        # To read image file buffer with OpenCV:
+            bytes_data = img_file_buffer.getvalue()
+            cv2_img = cv2.imdecode(np.frombuffer(bytes_data, np.uint8), cv2.IMREAD_GRAYSCALE)
+            cv2.imwrite(f"test/{img_file_buffer.name}",cv2_img)
+            pred = functions.predictor(f"test/{img_file_buffer.name}",functions.mean_face, functions.eigvecs, model)
+            print(pred)
+            with col2:
+                st.success(pred)
         
 
     
-    if image:
-        with col1:
-            st.image(image)
-        pred = functions.predictor(f"test/{image.name}",functions.mean_face, functions.eigvecs, model)
-        with col2:
-            st.success(pred)
-            image = Image.open("images\output.png")
-            st.image(image, caption="ROC curve")
+    
         
 if __name__ == '__main__':
-    head()
+    # head()
     main()
         
