@@ -31,7 +31,7 @@ def main():
     
     selected = option_menu(
         menu_title=None,
-        options=['Upload Photo', 'Camera Input'],
+        options=['Upload Photo', 'Camera Input', "ROC Curves"],
         orientation="horizontal"
     )
     
@@ -44,8 +44,7 @@ def main():
             pred = functions.predictor(f"test/{image.name}",functions.mean_face, functions.eigvecs, model)
             with col2:
                 st.success(pred)
-                image = Image.open("images\output.png")
-                st.image(image, caption="ROC curve")
+                
     
     elif selected == "Camera Input":
         col1, col2 = st.columns(2)
@@ -60,6 +59,9 @@ def main():
             print(pred)
             with col2:
                 st.success(pred)
+    elif selected == "ROC Curves":
+        image = Image.open("images\output.png")
+        st.image(image, caption="ROC curve", width=700)
         
 
     

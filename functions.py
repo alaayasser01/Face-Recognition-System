@@ -81,7 +81,7 @@ def predictor(image_path, mean_face, eigvecs,model):
         face_img = gray_img[y:y+h, x:x+w]
         face_img = cv2.resize(face_img, (100,100))
         gray_pixels = face_img.flatten().tolist()
-        break
+        
     pixel_values.append(gray_pixels)
     
     
