@@ -2,6 +2,9 @@ import streamlit as st
 import pickle
 import functions
 from PIL import Image
+import cv2
+import numpy as np
+
 
 with open("model.pkl","rb") as f:
         model = pickle.load(f)   
@@ -25,8 +28,18 @@ def head():
 
 def main():
     image = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"]) 
-    
     col1, col2 = st.columns(2)
+    img_file_buffer = st.camera_input("Take a picture")
+    if img_file_buffer is not None:
+    # To read image file buffer with OpenCV:
+        bytes_data = img_file_buffer.getvalue()
+        cv2_img = cv2.imdecode(np.frombuffer(bytes_data, np.uint8), cv2.IMREAD_GRAYSCALE)
+        cv2.imwrite(f"test/{img_file_buffer.name}",cv2_img)
+        pred = functions.predictor(f"test/{img_file_buffer.name}",functions.mean_face, functions.eigvecs, model)
+        print(pred)
+        st.success(pred)
+        
+
     
     if image:
         with col1:
