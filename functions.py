@@ -84,6 +84,7 @@ def predictor(image_path, mean_face, eigvecs,model):
         break
     pixel_values.append(gray_pixels)
     
+    
     pixel_values = pd.DataFrame(pixel_values)
     
     X = np.array(pixel_values).reshape(len((pixel_values)), -1).astype(np.float64)
@@ -94,3 +95,4 @@ def predictor(image_path, mean_face, eigvecs,model):
     pred = model.predict(X_pca)
     
     return pred[0]
+
