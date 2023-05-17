@@ -1,6 +1,7 @@
 import streamlit as st 
 import pickle
 import functions
+from PIL import Image
 
 with open("model.pkl","rb") as f:
         model = pickle.load(f)   
@@ -33,6 +34,8 @@ def main():
         pred = functions.predictor(f"test/{image.name}",functions.mean_face, functions.eigvecs, model)
         with col2:
             st.success(pred)
+            image = Image.open("images\output.png")
+            st.image(image, caption="ROC curve")
         
 if __name__ == '__main__':
     head()
