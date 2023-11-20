@@ -30,10 +30,6 @@ Face detection is implemented to identify and locate faces within images. The pr
 
 PCA/Eigen analysis is employed for face recognition, aiming to reduce the dimensionality of the feature space while preserving essential facial features.
 
-## ROC Curve
-
-ROC curves are plotted to visually assess the performance of the face recognition system, depicting the trade-off between true positive rate and false positive rate.
-
 ## Custom Dataset
 
 In addition to standard datasets, the project incorporates a custom dataset featuring faces from the team. This extends the application of face recognition to familiar faces.<br/>
@@ -43,6 +39,26 @@ As we trained the model on them at the end, you can test the application using t
 Feel free to explore and use the team dataset in your experiments.
 
 ## Streamlit Application
+The model used in this application is the one that learnd our 4 members team faces
+### We can choose to browse an image, use camera input or view our POC curve:
+ <p align="center">
+  <img align="center" src="https://github.com/alaayasser01/Face-Recognition-System/blob/main/images/choices.png"  alt="Choices">
+</p>
+<p align="center">
+  <img align="center" src="https://github.com/alaayasser01/Face-Recognition-System/blob/main/images/Take%20a%20picture.png"  alt="Choices">
+</p>
+
+### This is a True prediction ( yeah! it's me)
+ <p align="center">
+  <img align="center" src="https://github.com/alaayasser01/Face-Recognition-System/blob/main/images/true%20prediction.png"  alt="True">
+</p>
+
+## ROC Curve
+
+ROC curves are plotted to visually assess the performance of the face recognition system, depicting the trade-off between true positive rate and false positive rate.
+<p align="center">
+  <img align="center" src="https://github.com/alaayasser01/Face-Recognition-System/blob/main/images/output.png"  alt="ROC">
+</p>
 
 ## Usage
 
@@ -63,14 +79,4 @@ Ensure you have the following dependencies installed:
 
 Install them using: `pip install -r requirements.txt`
 
-## Contributors
-
-- John Doe (john.doe@example.com)
-- Jane Smith (jane.smith@example.com)
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
-Feel free to customize the README file according to your specific project details.
-
+# Your feedback and collaboration are highly valued. Feel free to delve into the details, and I'm open to discussions and contributions!
